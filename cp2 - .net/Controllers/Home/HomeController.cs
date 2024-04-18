@@ -21,6 +21,27 @@ namespace cp2___.net.Controllers
                 return View();
             }
 
+            [HttpPost]
+            public IActionResult Register(User models)
+        {
+            var user = _dataContext.Users.FirstOrDefault(x => x.Email == models.Email);
+            if (user != null)
+            {
+                return BadRequest("Usu�rio ja existe");
+            }
+            User newUser = new User
+            {
+                Id = models.Id,
+                Email = models.Email,
+                Name = models.Name,
+                Password = models.Password,
+                Phone = models.Phone,
+            };
+            _dataContext.Add(newUser);
+            _dataContext.SaveChanges();
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
