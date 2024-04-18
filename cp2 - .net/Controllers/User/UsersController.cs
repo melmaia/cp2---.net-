@@ -1,4 +1,5 @@
 using cp2___.net.Models;
+using cp2___.net.Controllers.Home;
 using cp2___.net.Models.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,11 +53,11 @@ namespace cp2___.net.Controllers
             if (user != null)
             {
                
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index");
             }
 
           
-            ModelState.AddModelError("", "Credenciais inválidas.");
+            ModelState.AddModelError("", "Credenciais invï¿½lidas.");
             return View();
         }
     }

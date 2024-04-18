@@ -1,13 +1,13 @@
-
+global using cp2___.net.Models;
 using cp2___.net.Models.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adiciona serviços ao contêiner.
+// Adiciona serviï¿½os ao contï¿½iner.
 builder.Services.AddControllersWithViews();
 
-// Configura a conexão com o banco de dados e adiciona o serviço de DbContext.
+// Configura a conexï¿½o com o banco de dados e adiciona o serviï¿½o de DbContext.
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
@@ -16,11 +16,11 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 var app = builder.Build();
 
-// Configura o pipeline de solicitação HTTP.
+// Configura o pipeline de solicitaï¿½ï¿½o HTTP.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // O valor padrão de HSTS é de 30 dias. Você pode querer alterar isso para cenários de produção, consulte https://aka.ms/aspnetcore-hsts.
+    // O valor padrï¿½o de HSTS ï¿½ de 30 dias. Vocï¿½ pode querer alterar isso para cenï¿½rios de produï¿½ï¿½o, consulte https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

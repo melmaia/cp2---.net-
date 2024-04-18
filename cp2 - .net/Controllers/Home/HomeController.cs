@@ -1,15 +1,19 @@
 using cp2___.net.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using cp2___.net.Models.Persistence;
+using System.Diagnostics;
 
-namespace cp2___.net.Controllers.Home
+namespace cp2___.net.Controllers
 {
-        public class UsersController : Controller
+        public class HomeController : Controller
         {
-            private readonly ILogger<UsersController> _logger;
-
-            public UsersController(ILogger<UsersController> logger)
+            private readonly ILogger<HomeController> _logger;
+            private readonly DataContext _dataContext;
+            
+            public HomeController(ILogger<HomeController> logger, DataContext dataContext)
             {
+                _dataContext = dataContext;
                 _logger = logger;
             }
 
