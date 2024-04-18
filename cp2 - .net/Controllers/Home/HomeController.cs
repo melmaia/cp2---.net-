@@ -1,7 +1,6 @@
 using cp2___.net.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using cp2___.net.Models.Persistence;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace cp2___.net.Controllers
@@ -11,10 +10,10 @@ namespace cp2___.net.Controllers
             private readonly ILogger<HomeController> _logger;
             private readonly DataContext _dataContext;
             
-            public HomeController(ILogger<HomeController> logger, DataContext dataContext)
+        public HomeController(ILogger<HomeController> logger,DataContext dataContext)
             {
-                _dataContext = dataContext;
-                _logger = logger;
+                 _dataContext = dataContext;
+                 _logger = logger;
             }
 
             public IActionResult Index()
@@ -22,20 +21,33 @@ namespace cp2___.net.Controllers
                 return View();
             }
 
-
             [HttpPost]
             public IActionResult Register(User models)
+        {
+            var user = _dataContext.Users.FirstOrDefault(x => x.Email == models.Email);
+            if (user != null)
             {
-                if (ModelState.IsValid)
-                {
-                  
-                    return RedirectToAction("Index");
-                }
-
-                return View(models);
+                return BadRequest("Usu�rio ja existe");
             }
+            User newUser = new User
+            {
+                Id = models.Id,
+                Email = models.Email,
+                Name = models.Name,
+                Password = models.Password,
+                Phone = models.Phone,
+            };
+            _dataContext.Add(newUser);
+            _dataContext.SaveChanges();
+            return View();
+        }
 
-            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
             public IActionResult Error()
             {
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
